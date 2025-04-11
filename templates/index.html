@@ -1,122 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Microscope Calculator</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
-      margin: 40px auto;
-      max-width: 600px;
-      padding: 20px;
-      color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: #eef1f7;
+      margin: 0;
+      padding: 40px 20px;
+      color: #2e2e2e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    h2, h3 {
+    .calculator-container {
+      background: #ffffff;
+      max-width: 640px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      margin-bottom: 40px;
+    }
+
+    h2 {
       text-align: center;
-      color: #222;
-    }
-
-    form {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      margin-bottom: 30px;
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-weight: 600;
     }
 
     label {
       display: block;
-      margin: 12px 0 6px;
-      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 6px;
+      font-weight: 500;
     }
 
     input[type="text"],
     input[type="number"] {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-sizing: border-box;
+      padding: 10px 12px;
+      border: 1px solid #d0d6e2;
+      border-radius: 10px;
       font-size: 15px;
+      background: #f9fbfd;
+      box-sizing: border-box;
+      transition: 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #6c63ff;
+      background: #ffffff;
     }
 
     input[type="submit"] {
-      margin-top: 20px;
+      margin-top: 25px;
       width: 100%;
       padding: 12px;
-      background-color: #4CAF50;
+      background: #6c63ff;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     input[type="submit"]:hover {
-      background-color: #45a049;
+      background: #574fd6;
+    }
+
+    .result-box {
+      background-color: #f4f9f4;
+      border-left: 5px solid #2ecc71;
+      padding: 16px;
+      font-size: 18px;
+      margin-top: 20px;
+      border-radius: 10px;
+      color: #2d7a46;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: #34495e;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: #fff;
-      border-radius: 8px;
+      background: white;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     }
 
     th, td {
-      padding: 12px 16px;
-      border-bottom: 1px solid #ddd;
+      padding: 14px 18px;
+      border-bottom: 1px solid #eee;
       text-align: center;
+      font-size: 15px;
     }
 
     th {
-      background-color: #f0f0f0;
+      background-color: #f7f9fc;
+      color: #4a4a4a;
       font-weight: 600;
     }
 
     tr:hover {
-      background-color: #f9f9f9;
+      background-color: #f1f3f9;
     }
 
-    .result-box {
-      background-color: #e8f5e9;
-      padding: 15px;
-      border-left: 4px solid #4CAF50;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      font-size: 18px;
+    .records-section {
+      max-width: 700px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <h2>🔬 Microscope Size Calculator</h2>
 
-  <form method="POST">
-    <label>Username:</label>
-    <input type="text" name="username" required>
+  <div class="calculator-container">
+    <h2>Microscope Size Calculator 🔍</h2>
+    <form method="POST">
+      <label>Username:</label>
+      <input type="text" name="username" required>
 
-    <label>Microscope Size (mm):</label>
-    <input type="number" step="0.01" name="microscope_size" required>
+      <label>Microscope Size (mm):</label>
+      <input type="number" step="0.01" name="microscope_size" required>
 
-    <label>Magnification:</label>
-    <input type="number" step="0.01" name="magnification" required>
+      <label>Magnification:</label>
+      <input type="number" step="0.01" name="magnification" required>
 
-    <input type="submit" value="Calculate">
-  </form>
+      <input type="submit" value="Calculate">
+    </form>
 
-  {% if result %}
-    <div class="result-box">
-      <strong>Actual Size:</strong> {{ result }} mm
-    </div>
-  {% endif %}
+    {% if result %}
+      <div class="result-box">
+        <strong>Actual Size:</strong> {{ result }} mm
+      </div>
+    {% endif %}
+  </div>
 
   {% if records %}
-    <h3>📋 All Records</h3>
+  <div class="records-section">
+    <h3>📊 All Records</h3>
     <table>
       <tr>
         <th>ID</th>
@@ -135,6 +169,7 @@
       </tr>
       {% endfor %}
     </table>
+  </div>
   {% endif %}
 </body>
 </html>
